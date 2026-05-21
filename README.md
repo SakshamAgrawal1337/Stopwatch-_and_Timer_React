@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# StopWatch & Timer (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, responsive **Stopwatch + Countdown Timer** built with **React**, **TypeScript**, **Vite**, **Tailwind CSS**, and **lucide-react**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Stopwatch**
+  - Start / Pause / Resume / Reset
+  - Displays time as `MM:SS:CS` (and includes hours when needed)
+  - Smooth circular progress ring
 
-## React Compiler
+- **Timer**
+  - Set duration using Hours / Minutes / Seconds inputs
+  - Start / Pause / Reset
+  - Countdown with circular progress ring
+  - Color changes as the timer approaches 20% / 50% remaining
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React (v19)
+- TypeScript
+- Vite
+- Tailwind CSS
+- lucide-react (icons)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the URL shown in the terminal.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Available Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- `pnpm dev` – start development server
+- `pnpm build` – typecheck + production build
+- `pnpm lint` – run ESLint
+- `pnpm preview` – preview the production build
+
+## How It Works
+
+- **Stopwatch** uses `setInterval` (10ms tick) and calculates elapsed time from `Date.now()`.
+- **Timer** computes an end timestamp (`Date.now() + duration`) and updates remaining time on an interval.
+- Both modes render the time in the center and use an SVG circle for the progress ring.
+
+## Notes
+
+- Timer duration is clamped to valid input ranges (Hours `0-99`, Minutes/Seconds `0-59`).
+- If timer input is `0`, the app shows an error message and disables the Start button.
+
